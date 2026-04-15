@@ -32,7 +32,7 @@ def get_calendar_service():
     return build("calendar", "v3", credentials=credentials)
 
 # ── Salesforce Connection ─────────────────────
-@st.cache_resource
+
 def get_salesforce():
     response = requests.post(
         f"{SF_INSTANCE_URL}/services/oauth2/token",
@@ -49,7 +49,7 @@ def get_salesforce():
     )
 
 # ── Load Customers from Salesforce ───────────
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=3600)
 def load_customers():
     sf = get_salesforce()
     result = sf.query("""
